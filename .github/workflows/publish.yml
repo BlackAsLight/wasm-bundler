@@ -1,0 +1,30 @@
+name: Publish
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Deno
+        uses: denoland/setup-deno@v1
+
+      - run: deno task check
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Update deno.lock
+          commit_user_name: BlackAsLight
+          commit_user_email: 44320105+BlackAsLight@users.noreply.github.com
+
+      - name: Publish package
+        run: deno publish

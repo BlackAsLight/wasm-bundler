@@ -1,0 +1,26 @@
+{
+  "version": "3",
+  "packages": {
+    "specifiers": {
+      "jsr:@doctor/encoding-stream@1": "jsr:@doctor/encoding-stream@1.2.1",
+      "jsr:@std/encoding@0": "jsr:@std/encoding@0.220.1"
+    },
+    "jsr": {
+      "@doctor/encoding-stream@1.2.1": {
+        "integrity": "fc702491a45e986bd5527eba5b91a2d2c23237e5dade7abe4244de1e38e725b9",
+        "dependencies": [
+          "jsr:@std/encoding@0"
+        ]
+      },
+      "@std/encoding@0.220.1": {
+        "integrity": "8dc38dd72e36cd68857a5837e24eb09a64bb296b96c295239c75eec17d45d23f"
+      }
+    }
+  },
+  "remote": {},
+  "workspace": {
+    "dependencies": [
+      "jsr:@doctor/encoding-stream@1"
+    ]
+  }
+}

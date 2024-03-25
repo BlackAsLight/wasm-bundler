@@ -1,0 +1,17 @@
+{
+	"name": "@doctor/wasm-bundler",
+	"version": "1.0.0",
+	"exports": "./main.ts",
+	"publish": {
+		"exclude": [
+			".*"
+		]
+	},
+	"tasks": {
+		"check": "deno check *.ts && deno cache --lock-write *.ts",
+		"fmt": "prettier --write ./**/*.ts"
+	},
+	"imports": {
+		"@doctor/encoding-stream": "jsr:@doctor/encoding-stream@1"
+	}
+}
