@@ -1,6 +1,6 @@
 {
 	"name": "@doctor/wasm-bundler",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"exports": "./main.ts",
 	"publish": {
 		"exclude": [

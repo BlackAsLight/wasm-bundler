@@ -13,7 +13,9 @@ if (!import.meta.main)
 const [inWasmFile, inJsFile, outFile] = Deno.args
 
 if (typeof inWasmFile !== 'string' || typeof inJsFile !== 'string' || typeof outFile !== 'string')
-	throw Error('Usage Error: deno run --allow-read --allow-write @doctor/wasm-bundler <pathToWasmFile> <pathToJsFileRelativeToOutPath> <pathToOutFile>')
+	throw Error(
+		'Usage Error: deno run --allow-read --allow-write @doctor/wasm-bundler <pathToWasmFile> <pathToJsFileRelativeToOutPath> <pathToOutFile>',
+	)
 
 await (
 	await Deno.open(inWasmFile)
@@ -24,15 +26,15 @@ await (
 		new TransformStream<string, string>({
 			start(controller) {
 				controller.enqueue(
-					`import { DecodeBase64Stream } from '@doctor/encoding-stream/base64'\nimport x from '${inJsFile}'\n\nx(new Response(ReadableStream.from((async function* () {\n`,
+					`import { DecodeBase64Stream } from '@doctor/encoding-stream/base64'\nimport x from '${inJsFile}'\n\nx(new Response(\n\tReadableStream.from((async function* () {\n`,
 				)
 			},
 			transform(chunk, controller) {
-				controller.enqueue("\tyield '" + chunk + "'\n")
+				controller.enqueue("\t\tyield '" + chunk + "'\n")
 			},
 			flush(controller) {
 				controller.enqueue(
-					"})())\n\t.pipeThrough(new DecodeBase64Stream())\n\t.pipeThrough(new DecompressionStream('gzip'))))\n",
+					"\t})())\n\t\t.pipeThrough(new DecodeBase64Stream())\n\t\t.pipeThrough(new DecompressionStream('gzip'))\n))\n",
 				)
 			},
 		}),

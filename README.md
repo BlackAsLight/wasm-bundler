@@ -15,9 +15,11 @@ deno run --allow-read --allow-write @doctor/wasm-bundler static/wasm/app_bg.wasm
 import { DecodeBase64Stream } from '@doctor/encoding-stream/base64'
 import x from './app.js'
 
-x(new Response(ReadableStream.from((async function* () {
-	yield 'Imagine Repeated Base64 Strings Here!'
-})())
-	.pipeThrough(new DecodeBase64Stream())
-	.pipeThrough(new DecompressionStream('gzip'))))
+x(new Response(
+	ReadableStream.from((async function* () {
+		yield 'Imagine Repeated Base64 Strings Here!'
+	})())
+		.pipeThrough(new DecodeBase64Stream())
+		.pipeThrough(new DecompressionStream('gzip'))
+))
 ```
