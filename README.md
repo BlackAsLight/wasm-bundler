@@ -4,7 +4,7 @@ that has the wasm binary file gzipped and stringified to base64 for load. This f
 other code of yours via your desired bundler. The generated code does need the `@doctor/encoding-stream/base64` dependency to
 function properly.
 
-## Example
+## Example 1
 ### Example Command
 Assuming there was a `static/wasm/app.js` and `static/wasm/app_bg.wasm` file already in your code base.
 ```
@@ -22,4 +22,16 @@ x(new Response(
 		.pipeThrough(new DecodeBase64Stream())
 		.pipeThrough(new DecompressionStream('gzip'))
 ))
+```
+
+## Example 2
+### Example Import
+Assuming there was a `static/wasm/app.js` and `static/wasm/app_bg.wasm` file already in your code base.
+```ts
+import { WasmToJs } from '@doctor/wasm-bundler/mod'
+
+(await Deno.open('./static/wasm/app_bg.wasm'))
+	.readable
+	.pipeThrough(new WasmToJs('./app.js'))
+	.pipeTo(Deno.stdout.writable)
 ```
